@@ -7,28 +7,32 @@
 
 const showList = document.querySelector(".showlist");
 const searchButton = document.querySelector(".js-button");
-//console.log(`después de const`);
 let allShow = [];
 
-function getDataApi(ev) {
-    ev.preventDefault();
+
+//Función para coger del Api
+function getDataApi() {
    const nameShowInput = document.querySelector(".js-input");
    const inputWord = nameShowInput.value;
    fetch("http://api.tvmaze.com/search/shows?q="+inputWord)
    .then( response => response.json())
    // document.body.innerHTML=data[0].score);
    .then(data =>{
-      let html = "";
-      for (let index = 0; index < data.length; index++) {
-         const element = data[index];
-         html += "<li class = item>"
-         html+= data[index].show.name;
-         html+= "</li>"
-      }
-      showList.innerHTML = html;
-   })
-
-       
-   
+      allShow = data;
+      renderShow();
+   });
 }
+//Mostrar títulos e imágenes
+function renderShow(){
+   let html = "";
+   for (let index = 0; index < allShow.length; index++) {
+      html += "<li class = item>";
+      html+= allShow[index].show.name;
+      //html+= data[index].show.image[0];
+      html+= "</li>";
+      // console.log(allShow[index].show.image.medium);
+   }
+   showList.innerHTML = html;
+}
+
 searchButton.addEventListener("click",getDataApi);
