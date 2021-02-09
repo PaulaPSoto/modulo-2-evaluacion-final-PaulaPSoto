@@ -42,6 +42,8 @@ function renderShow(){
         htmlShowList+= "</li>";
    }
     showList.innerHTML = htmlShowList;
+
+
    //fav
    const getLis = document.querySelectorAll(".item");
    //a cada li le añadimos un evento
@@ -56,11 +58,11 @@ function handleFav(ev) {
      const livalue = ev.target.innerHTML;
      favoriteShow.push(livalue);
      //alert(livalue);
-     renderFav2();
+     renderFav();
      //setLocalStorarage();
 }
 
-function renderFav2() {
+function renderFav() {
    //let favoriteLocal = getLocalStorage();
    let html ="";
    for (let index = 0; index < favoriteShow.length; index++) {
@@ -72,26 +74,22 @@ function renderFav2() {
    setLocalStorarage(html);
 }
 
-function renderFav() {
-   //let favoriteLocal = getLocalStorage();
-   let html ="";
-   for (let index = 0; index < favoriteLocal.length; index++) {
-       html += "<li class = lifav>";
-       html += favoriteLocal[index];
-       html += "</li>";
-   }
-   showfav.innerHTML = html;
+//me traigo lo que me guarda y se lo añado a la ul
+function renderFavlocal() {
+   let favoriteLocal = getLocalStorage();
+   showfav.innerHTML = favoriteLocal;
 }
+
 //local Storage coger lo guardado y pasarlo a JSON//
 function getLocalStorage(){
    const favLocal = JSON.parse(localStorage.getItem("favorite"));
    return favLocal;
 }
 //local Storage guardarlo y convertirlo en cadena
-function setLocalStorarage(myul){
-   localStorage.setItem ("favorite",JSON.stringify(myul));
+function setLocalStorarage(html){
+   localStorage.setItem ("favorite",JSON.stringify(html));
 }
 
 searchButton.addEventListener("click",getDataApi);
-//renderFav();
-//getLocalStorage();
+renderFavlocal();
+
