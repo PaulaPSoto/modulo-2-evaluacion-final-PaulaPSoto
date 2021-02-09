@@ -7,7 +7,11 @@
 
 const showList = document.querySelector(".showlist");
 const searchButton = document.querySelector(".js-button");
+const showfav = document.querySelector(".showfav");
+
+
 let allShow = [];
+let favoriteShow = [];
 
 
 //Función para coger del Api
@@ -22,7 +26,15 @@ function getDataApi() {
       renderShow();
    });
 }
-//Mostrar títulos e imágenes
+   //Mostrar títulos e imágenes
+   function handleFav (ev) {
+      console.log('marcado favorito');
+       const livalue = ev.target.innerHTML;
+       favoriteShow.push(livalue);
+      // console.log('hola?');
+       console.log('gg'+favoriteShow);
+      // renderFav();
+   }
 function renderShow(){
    let htmlShowList = "";
    for (let index = 0; index < allShow.length; index++) {
@@ -31,16 +43,13 @@ function renderShow(){
         htmlShowList+= "</li>";
    }
    showList.innerHTML = htmlShowList;
+   //favoritos
+   const getLis = document.querySelectorAll(".item");
+   console.log(getLis.length);
+   for (const getli of getLis) {
+   getli.addEventListener('click', handleFav);
+   let html =""
+}
 }
 
 searchButton.addEventListener("click",getDataApi);
-
-
-
-
-
-  // html += "<li class = item>";
-      // html+= allShow[index].show.name;
-      // html+= allShow[index].show.image.medium;
-      // html+= "</li>";
-      //  console.log(allShow[index].show.image.medium);
