@@ -24,15 +24,23 @@ function getDataApi() {
 }
 //Mostrar títulos e imágenes
 function renderShow(){
-   let html = "";
+   let htmlShowList = "";
    for (let index = 0; index < allShow.length; index++) {
-      html += "<li class = item>";
-      html+= allShow[index].show.name;
-      //html+= data[index].show.image[0];
-      html+= "</li>";
-      // console.log(allShow[index].show.image.medium);
+        htmlShowList += "<li class = item>";
+        htmlShowList += allShow[index].show.name;
+        htmlShowList+= "</li>";
    }
-   showList.innerHTML = html;
+   showList.innerHTML = htmlShowList;
 }
 
 searchButton.addEventListener("click",getDataApi);
+
+
+
+
+
+  // html += "<li class = item>";
+      // html+= allShow[index].show.name;
+      // html+= allShow[index].show.image.medium;
+      // html+= "</li>";
+      //  console.log(allShow[index].show.image.medium);
