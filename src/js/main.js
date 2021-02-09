@@ -8,6 +8,7 @@
 const showList = document.querySelector(".showlist");
 const searchButton = document.querySelector(".js-button");
 const showfav = document.querySelector(".showfav");
+const getLis = document.querySelectorAll(".item");
 
 let allShow = [];
 let favoriteShow = [];
@@ -30,20 +31,18 @@ function renderShow(){
    for (let index = 0; index < allShow.length; index++) {
       htmlShowList += "<li class = item>";
       if (allShow[index].show.image !== null) {
-      console.log ("Soy indefinida");
-        myimage = `src="./assets/images/photodefault.png"`;
+      console.log ("Soy definida");
+      myimage = allShow[index].show.image.medium;
         } else{
-        console.log ("Soy definida");
-        //myimage = allShow[index].show.image.medium;
+        console.log ("Soy indefinida");
+        myimage = "./assets/images/photodefault.png";
         }
-        htmlShowList += `<img class="js-imghtml" src=`+ myimage +  ` alt=""></img>`;
+        htmlShowList += `<img class="js-imghtml" src=`+ myimage + ` alt="Imagen Serie"></img>`;
         htmlShowList += allShow[index].show.name;
         htmlShowList+= "</li>";
    }
     showList.innerHTML = htmlShowList;
    //fav
-   //recoger todos li - item
-   const getLis = document.querySelectorAll(".item");
 
    //a cada li le añadimos un evento
    for (const getli of getLis) {
@@ -61,15 +60,12 @@ function setLocalStorarage(){
    localStorage.setItem ("favorite",JSON.stringify(favoriteShow));
 }
 
-
 function handleFav(ev) {
      const livalue = ev.target.innerHTML;
-     //ev.target.classList.add('favorite');
      favoriteShow.push(livalue);
      renderFav();
      setLocalStorarage();
 }
-
 
 function renderFav() {
    let favoriteLocal = getLocalStorage();
@@ -81,8 +77,6 @@ function renderFav() {
     }
     showfav.innerHTML = html;
 }
-
-
 
 searchButton.addEventListener("click",getDataApi);
 renderFav();
