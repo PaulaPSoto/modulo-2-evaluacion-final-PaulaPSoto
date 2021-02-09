@@ -8,7 +8,7 @@
 const showList = document.querySelector(".showlist");
 const searchButton = document.querySelector(".js-button");
 const showfav = document.querySelector(".showfav");
-const getLis = document.querySelectorAll(".item");
+
 
 let allShow = [];
 let favoriteShow = [];
@@ -43,41 +43,55 @@ function renderShow(){
    }
     showList.innerHTML = htmlShowList;
    //fav
-
+   const getLis = document.querySelectorAll(".item");
    //a cada li le añadimos un evento
    for (const getli of getLis) {
     getli.addEventListener('click', handleFav);
     console.log(getLis.length);
   }
 }
-//local Storage coger lo guardado y pasarlo a JSON
+
+
+function handleFav(ev) {
+     const livalue = ev.target.innerHTML;
+     favoriteShow.push(livalue);
+     //alert(livalue);
+     renderFav2();
+     //setLocalStorarage();
+}
+
+function renderFav2() {
+   //let favoriteLocal = getLocalStorage();
+   let html ="";
+   for (let index = 0; index < favoriteShow.length; index++) {
+       html += "<li class = lifav>";
+       html += favoriteShow[index];
+       html += "</li>";
+   }
+   showfav.innerHTML = html;
+   setLocalStorarage(html);
+}
+
+function renderFav() {
+   //let favoriteLocal = getLocalStorage();
+   let html ="";
+   for (let index = 0; index < favoriteLocal.length; index++) {
+       html += "<li class = lifav>";
+       html += favoriteLocal[index];
+       html += "</li>";
+   }
+   showfav.innerHTML = html;
+}
+//local Storage coger lo guardado y pasarlo a JSON//
 function getLocalStorage(){
    const favLocal = JSON.parse(localStorage.getItem("favorite"));
    return favLocal;
 }
 //local Storage guardarlo y convertirlo en cadena
-function setLocalStorarage(){
-   localStorage.setItem ("favorite",JSON.stringify(favoriteShow));
-}
-
-function handleFav(ev) {
-     const livalue = ev.target.innerHTML;
-     favoriteShow.push(livalue);
-     renderFav();
-     setLocalStorarage();
-}
-
-function renderFav() {
-   let favoriteLocal = getLocalStorage();
-    let html ="";
-    for (let index = 0; index < favoriteLocal.length; index++) {
-       html += "<li class = lifav>";
-       html += favoriteLocal[index];
-       html += "</li>";
-    }
-    showfav.innerHTML = html;
+function setLocalStorarage(myul){
+   localStorage.setItem ("favorite",JSON.stringify(myul));
 }
 
 searchButton.addEventListener("click",getDataApi);
-renderFav();
-getLocalStorage();
+//renderFav();
+//getLocalStorage();
