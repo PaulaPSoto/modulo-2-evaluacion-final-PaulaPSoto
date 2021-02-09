@@ -30,8 +30,17 @@ function getDataApi() {
 
 function renderShow(){
    let htmlShowList = "";
-   for (let index = 0; index < allShow.length; index++) {
-        htmlShowList += "<li class = item>";
+   let myimage = "";
+   for (let index = 0; index < allShow.length-7; index++) {
+      htmlShowList += "<li class = item>";
+      if (typeof allShow[index].show.image === null ) {
+      console.log ("Soy indefinida");
+      //  myimage = "src="./assets/images/photodefault.png";
+        } else{
+         console.log ("Soy definida");
+         myimage = allShow[index].show.image.medium;
+        }
+        htmlShowList += `<img class="js-imghtml" src=`+ myimage +  ` alt=""></img>`;
         htmlShowList += allShow[index].show.name;
         htmlShowList+= "</li>";
    }
@@ -51,9 +60,12 @@ function setLocalStorarage(){
    localStorage.setItem ("favorite",JSON.stringify(favoriteShow));
   }
 
+
 function handleFav(ev) {
     console.log('marcado favorito');
      const livalue = ev.target.innerHTML;
+     console.log(ev.target);
+     ev.target.classList.add('favorite');
      favoriteShow.push(livalue);
        // console.log('hola?');
         console.log('gg'+favoriteShow);
@@ -62,8 +74,8 @@ function handleFav(ev) {
       setLocalStorarage();
 }
 
+
 function renderFav() {
-   // let fav = getLocalStorage();
     let html ="";
     for (let index = 0; index < favoriteShow.length; index++) {
        html += "<li class = lifav>";
