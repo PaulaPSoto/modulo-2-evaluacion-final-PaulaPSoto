@@ -10,6 +10,7 @@ const searchButton = document.querySelector(".js-button");
 const showfav = document.querySelector(".showfav");
 
 
+
 let allShow = [];
 let favoriteShow = [];
 
@@ -26,15 +27,7 @@ function getDataApi() {
       renderShow();
    });
 }
-   //Mostrar títulos e imágenes
-   function handleFav (ev) {
-      console.log('marcado favorito');
-       const livalue = ev.target.innerHTML;
-       favoriteShow.push(livalue);
-      // console.log('hola?');
-       console.log('gg'+favoriteShow);
-      // renderFav();
-   }
+
 function renderShow(){
    let htmlShowList = "";
    for (let index = 0; index < allShow.length; index++) {
@@ -43,13 +36,44 @@ function renderShow(){
         htmlShowList+= "</li>";
    }
    showList.innerHTML = htmlShowList;
-   //favoritos
+   //fav
+   //recoger todos li - item
    const getLis = document.querySelectorAll(".item");
-   console.log(getLis.length);
+
+   //a cada li le añadimos un evento
    for (const getli of getLis) {
-   getli.addEventListener('click', handleFav);
-   let html =""
+    getli.addEventListener('click', handleFav);
+    console.log(getLis.length);
+  }
 }
+
+function setLocalStorarage(){
+   localStorage.setItem ("favorite",JSON.stringify(favoriteShow));
+  }
+
+function handleFav(ev) {
+    console.log('marcado favorito');
+     const livalue = ev.target.innerHTML;
+     favoriteShow.push(livalue);
+       // console.log('hola?');
+        console.log('gg'+favoriteShow);
+      //  console.log(getLis.length);
+      renderFav();
+      setLocalStorarage();
 }
+
+function renderFav() {
+   // let fav = getLocalStorage();
+    let html ="";
+    for (let index = 0; index < favoriteShow.length; index++) {
+       html += "<li class = lifav>";
+       html += favoriteShow[index];
+       html += "</li>";
+    }
+    showfav.innerHTML = html;
+
+ //const getLis = document.querySelectorAll(".item");
+}
+
 
 searchButton.addEventListener("click",getDataApi);
