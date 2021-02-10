@@ -27,7 +27,10 @@ function renderShow(){
    let htmlShowList = "";
    let myimage = "";
    for (let index = 0; index < allShow.length; index++) {
-      htmlShowList += "<li class = item>";
+      if (isFav(allShow[index])) {
+      htmlShowList += "<li class = 'item lifav'>";
+      }   else { 
+           htmlShowList += "<li class = 'item'>";}
       if (allShow[index].show.image !== null) {
       myimage = allShow[index].show.image.medium;
         } else{
@@ -49,28 +52,54 @@ function renderShow(){
   }
 }
 
+function isFav(show) {
+   const favoriteFound = favoriteShow.find(favorite => {
+      // la dificultad de esta función interna del find es saber que tengo que comparar
+      // yo consolearía console.log(favorite, palette) para ver los datos que debo comparar
+      return favorite.show.id === show.show.id;
+    });
+    // find devuelve undefined si no lo encuentra
+    // retorno si está o no está en favoritos
+    if (favoriteFound === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+}
+
 //el evento debe ir completando mi array de favoritos
 function handleFav(ev) {
-     const livalue = ev.target.innerHTML;
-     favoriteShow.push(livalue);
+     favoriteShow.push(allShow[0]);
      renderFav();
+     renderShow();
 }
 
 function renderFav() {
-   let html ="";
+   let htmlShowList = "";
+   let myimage = "";
    for (let index = 0; index < favoriteShow.length; index++) {
-       html += "<li class = lifav>";
-       html += favoriteShow[index];
-       html += "</li>";
+      htmlShowList += "<li class = 'item'>";
+      if (favoriteShow[index].show.image !== null) {
+      myimage = favoriteShow[index].show.image.medium;
+        } else{
+        myimage = "./assets/images/photodefault.png";
+        }
+        htmlShowList += `<img class="js-imghtml" src=`+ myimage + ` alt="Imagen Serie">`;
+        htmlShowList += favoriteShow[index].show.name;
+        htmlShowList+= "</li>";
    }
-   showfav.innerHTML = html;
-   setLocalStorarage(html);
+   showfav.innerHTML = htmlShowList;
+   setLocalStorarage();
 }
 
 //me traigo lo que me guarda y se lo añado a la ul
 function renderFavlocal() {
    let favoriteLocal = getLocalStorage();
-   showfav.innerHTML = favoriteLocal;
+   if (favoriteLocal) {
+
+      favoriteShow = favoriteLocal;
+      renderFav();
+   }
 }
 
 //local Storage coger lo guardado y pasarlo a JSON//
@@ -79,8 +108,8 @@ function getLocalStorage(){
    return favLocal;
 }
 //local Storage guardarlo y convertirlo en cadena
-function setLocalStorarage(html){
-   localStorage.setItem ("favorite",JSON.stringify(html));
+function setLocalStorarage(){
+   localStorage.setItem ("favorite",JSON.stringify(favoriteShow));
 }
 
 searchButton.addEventListener("click",getDataApi);
