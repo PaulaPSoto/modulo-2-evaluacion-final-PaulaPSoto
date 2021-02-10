@@ -3,8 +3,6 @@
 /* eslint-disable indent */
 'use strict';
 
-//console.log('antes de const');
-
 const showList = document.querySelector(".showlist");
 const searchButton = document.querySelector(".js-button");
 const showfav = document.querySelector(".showfav");
@@ -31,10 +29,8 @@ function renderShow(){
    for (let index = 0; index < allShow.length; index++) {
       htmlShowList += "<li class = item>";
       if (allShow[index].show.image !== null) {
-      console.log ("Soy definida");
       myimage = allShow[index].show.image.medium;
         } else{
-        console.log ("Soy indefinida");
         myimage = "./assets/images/photodefault.png";
         }
         htmlShowList += `<img class="js-imghtml" src=`+ myimage + ` alt="Imagen Serie">`;
@@ -53,17 +49,14 @@ function renderShow(){
   }
 }
 
-
+//el evento debe ir completando mi array de favoritos
 function handleFav(ev) {
      const livalue = ev.target.innerHTML;
      favoriteShow.push(livalue);
-     //alert(livalue);
      renderFav();
-     //setLocalStorarage();
 }
 
 function renderFav() {
-   //let favoriteLocal = getLocalStorage();
    let html ="";
    for (let index = 0; index < favoriteShow.length; index++) {
        html += "<li class = lifav>";
