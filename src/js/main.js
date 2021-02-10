@@ -37,7 +37,7 @@ function renderShow(){
         console.log ("Soy indefinida");
         myimage = "./assets/images/photodefault.png";
         }
-        htmlShowList += `<img class="js-imghtml" src=`+ myimage + ` alt="Imagen Serie"></img>`;
+        htmlShowList += `<img class="js-imghtml" src=`+ myimage + ` alt="Imagen Serie">`;
         htmlShowList += allShow[index].show.name;
         htmlShowList+= "</li>";
    }
