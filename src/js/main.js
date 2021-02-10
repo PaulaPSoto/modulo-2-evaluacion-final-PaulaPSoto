@@ -37,7 +37,6 @@ function renderShow(){
         htmlShowList += allShow[index].show.name;
         htmlShowList+= "</li>";
    }
-    
     showList.innerHTML = htmlShowList;
 
 
