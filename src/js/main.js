@@ -65,6 +65,7 @@ function renderFav() {
    }
    showfav.innerHTML = html;
    setLocalStorarage(html);
+   console.log(html);
 }
 
 //me traigo lo que me guarda y se lo añado a la ul
